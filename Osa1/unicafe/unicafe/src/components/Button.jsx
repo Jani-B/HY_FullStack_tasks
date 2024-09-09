@@ -1,9 +1,11 @@
 function Button(props) {
   return (
     <>
-      <button>{props.feedback}</button>
+      <button onClick={props.giveFeedback}>{props.feedback}</button>
     </>
   );
 }
 
 export default Button;
+
+//onClick={props.handleClick}
