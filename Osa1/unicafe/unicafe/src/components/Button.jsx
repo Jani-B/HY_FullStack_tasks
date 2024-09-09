@@ -7,5 +7,3 @@ function Button(props) {
 }
 
 export default Button;
-
-//onClick={props.handleClick}

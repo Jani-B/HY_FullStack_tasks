@@ -1,22 +1,29 @@
-function Statistics(props) {
-  const all = props.good + props.neutral + props.bad;
-  const pointsGood = props.good * 1;
-  const pointsBad = props.bad * -1;
+import StatisticsLine from "./StatisticsLine";
 
-  const average = (pointsGood + pointsBad) / all;
+function Statistics({ good, neutral, bad }) {
+  const all = good + neutral + bad;
+  const pointsGood = good * 1;
+  const pointsBad = bad * -1;
 
-  const positive = (props.good / all) * 100;
+  const averagecalc = (pointsGood + pointsBad) / all;
+  const average = Math.round(averagecalc * 10) / 10;
+
+  const positivecalc = (good / all) * 100;
+  const positive = Math.round(positivecalc * 10) / 10;
+  const positivePercent = ` ${positive} %`;
 
   if (all > 0) {
     return (
       <>
         <h2>Statistics</h2>
-        <p>Good: {props.good}</p>
-        <p>Neutral: {props.neutral}</p>
-        <p>Bad: {props.bad}</p>
-        <p>All: {all}</p>
-        <p>Average: {average}</p>
-        <p>Positive: {positive}</p>
+        <table>
+          <StatisticsLine text="Good" value={good} />
+          <StatisticsLine text="Neutral" value={neutral} />
+          <StatisticsLine text="Bad" value={bad} />
+          <StatisticsLine text="All" value={all} />
+          <StatisticsLine text="Average" value={average} />
+          <StatisticsLine text="Positive" value={positivePercent} />
+        </table>
       </>
     );
   } else {
