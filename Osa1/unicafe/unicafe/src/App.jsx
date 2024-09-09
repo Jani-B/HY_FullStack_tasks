@@ -4,9 +4,9 @@ import Button from "./components/Button";
 import Statistics from "./components/Statistics";
 
 function App() {
-  const [good, setGood] = useState(2);
-  const [neutral, setNeutral] = useState(3);
-  const [bad, setBad] = useState(5);
+  const [good, setGood] = useState(0);
+  const [neutral, setNeutral] = useState(0);
+  const [bad, setBad] = useState(0);
 
   const setFeedback = (feedback) => {
     if (feedback === "good") {
