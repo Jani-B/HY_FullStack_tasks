@@ -1,7 +1,4 @@
 function Anecdotes(props) {
-
-
-
   return (
     <>
       <h1>Random Anecdotes</h1>

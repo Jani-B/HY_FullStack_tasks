@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Anecdotes from "./components/Anecdote";
 import Button from "./components/Button";
+import BestAnecdote from "./components/BestAnecdote";
 import "./App.css";
 
 function App() {
@@ -19,6 +20,12 @@ function App() {
 
   const [selected, setSelected] = useState(0);
   const [currentVote, setCurrentVote] = useState(votes); //we added the votes array to the first time to useState
+  const [best, setBest] = useState(0);
+
+  useEffect(() => {
+    //useEffect to checn biggestIndex every time currentVote changes
+    biggestIndex(currentVote);
+  }, [currentVote]);
 
   //this is to get randomIndex to be used to select  random anecdote.
   const selectRandom = () => {
@@ -36,8 +43,20 @@ function App() {
     const voteCopy = [...currentVote];
     voteCopy[selected] += 1;
     setCurrentVote(voteCopy);
-    console.log("test");
-    console.log(voteCopy);
+  };
+
+  //this is used to get the index of the biggest number on the currentVote state
+  const biggestIndex = (current) => {
+    let max = current[0];
+    let maxIndex = 0;
+
+    for (let i = 1; i < current.length; i++) {
+      if (current[i] > max) {
+        maxIndex = i;
+        max = current[i];
+      }
+    }
+    setBest(maxIndex);
   };
 
   return (
@@ -50,6 +69,9 @@ function App() {
         />
         <Button clickEvent={vote} text={"Vote"} />
         <Button clickEvent={selectRandom} text={"Get Next Anecdote"} />
+      </div>
+      <div>
+        <BestAnecdote anecdotes={anecdotes} best={best} />
       </div>
     </>
   );
