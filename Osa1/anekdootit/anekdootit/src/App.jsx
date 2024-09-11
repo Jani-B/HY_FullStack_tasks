@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Anecdotes from "./components/Anecdote";
+import Button from "./components/Button";
 import "./App.css";
 
 function App() {
@@ -13,13 +15,41 @@ function App() {
     "The only way to go fast, is to go well.",
   ];
 
+  let votes = Array(anecdotes.length).fill(0); //this creates an array with 0 on all
+
   const [selected, setSelected] = useState(0);
+  const [currentVote, setCurrentVote] = useState(votes); //we added the votes array to the first time to useState
+
+  //this is to get randomIndex to be used to select  random anecdote.
+  const selectRandom = () => {
+    const randomIndex = Math.floor(Math.random() * anecdotes.length);
+    if (randomIndex !== selected) {
+      //only if the random index is different than the current anecdote index
+      setSelected(randomIndex);
+    } else {
+      //if it is same we run this function again
+      selectRandom();
+    }
+  };
+  //to add 1 on the correct anecdote vote number array
+  const vote = () => {
+    const voteCopy = [...currentVote];
+    voteCopy[selected] += 1;
+    setCurrentVote(voteCopy);
+    console.log("test");
+    console.log(voteCopy);
+  };
 
   return (
     <>
       <div>
-        <h1>Random Anecdotes</h1>
-        <p>{anecdotes[selected]}</p>
+        <Anecdotes
+          anecdotes={anecdotes}
+          selected={selected}
+          votes={currentVote}
+        />
+        <Button clickEvent={vote} text={"Vote"} />
+        <Button clickEvent={selectRandom} text={"Get Next Anecdote"} />
       </div>
     </>
   );
