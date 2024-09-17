@@ -1,12 +1,10 @@
 const Total = (props) => {
-  return (
-    <p>
-      Number of exercises{" "}
-      {props.parts[0].exercises +
-        props.parts[1].exercises +
-        props.parts[2].exercises}
-    </p>
-  );
+  let total = 0;
+  props.parts.map((part) => {
+    total += part.exercises;
+  });
+
+  return <p>Number of exercises: {total}</p>;
 };
 
 export default Total;
